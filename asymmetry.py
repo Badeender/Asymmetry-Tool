@@ -28,7 +28,7 @@ def initiate_exchange(host, port):
 
             # Receive the remote host's timestamp and offset
             data, _ = sock.recvfrom(1024)
-            recv_time_B, send_time_B, offset_B = struct.unpack('!QQi', data)
+            recv_time_B, offset_B = struct.unpack('!Qi', data)
             recv_time_A = int(time.time() * 1e6)
             rtt = int(recv_time_A - send_time_A)
             rtt_ms = rtt / 1000
@@ -94,7 +94,7 @@ def respond_to_exchange(port):
             unpacked = struct.unpack('!Qi', data)
             offset_B = abs(recv_time_B - unpacked[0])
             offset_A = unpacked[1]
-            packet = struct.pack('!QQi', recv_time_B, send_time_B, offset_B)
+            packet = struct.pack('!Qi', recv_time_B, offset_B)
             if(offset_A == int(0x7FFFFFFF)):
                 print(f"---- Initial request:\n   ", end='')
                 skew = "N/A"
@@ -102,7 +102,7 @@ def respond_to_exchange(port):
             else:
                 skew = offset_A - offset_B
             sock.sendto(packet, addr)
-            print(f"Received at: {recv_time_B}, Sending response at: {send_time_B}, Offset A: {offset_A}, Offset B: {offset_B}, Skew: {skew}")
+            print(f"Received at: {recv_time_B}, Offset A: {offset_A}, Offset B: {offset_B}, Skew: {skew}")
     except KeyboardInterrupt:
         print("\nStopped responding to exchange requests.")
     finally:
