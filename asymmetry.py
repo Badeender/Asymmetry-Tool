@@ -68,8 +68,8 @@ def initiate_exchange(host, port):
         median_adj = statistics.median(adjustments)
         median_rtt = statistics.median(rtts) / 1000
         
-        local_percentage = 50 + (median_adj * 100) / 2
-        remote_percentage = 100 - local_percentage
+        remote_percentage = 50 + (median_adj * 100) / 2
+        local_percentage = 100 - remote_percentage
         
         common_divisor = gcd(local_percent, remote_percent)
         simplified_local = abs(local_percent) / common_divisor
