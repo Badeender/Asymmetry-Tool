@@ -53,11 +53,11 @@ def initiate_exchange(host, port):
             
             
             
-            skew = rtt_ms - (local_offset_ms + remote_offset_ms)
+            skew = local_offset_ms - remote_offset_ms
             chrony =  (remote_percent /100 ) - (local_percent / 100)
             adjustments.append(chrony)
             rtts.append(rtt)
-            print(f"Exchange {i} - RTT: {rtt_ms:.2f} ms, Local Offset: {local_offset_ms:.2f} ms,  Remote Offset: {remote_offset_ms:.2f} ms,    Asymmetry Ratio: {local_percent}/{remote_percent} ({chrony:.2f}, {simplified_local:.0f}:{simplified_remote:.0f}),    Skew: {skew:.2f} ms")
+            print(f"Exchange {i} - RTT: {rtt_ms:.2f} ms, Local Offset: {local_offset_ms:.2f} ms,  Remote Offset: {remote_offset_ms:.2f} ms,    Asymmetry Ratio: {local_percent}/{remote_percent} ({chrony:.2f}, {simplified_local:.0f}:{simplified_remote:.0f}),    Offset Discrepancy: {skew:.2f} ms")
 
         except socket.timeout:
             print(f"Exchange {i}: No response received, skipping.")
