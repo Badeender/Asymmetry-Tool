@@ -76,7 +76,7 @@ def initiate_exchange(host, port):
         simplified_remote = abs(remote_percent) / common_divisor
         
         print(f"\n---- MEDIANS:\nRTT: {median_rtt:.2f}\nRatio: {local_percentage:.0f}/{remote_percentage:.0f} ({simplified_local:.0f}:{simplified_remote:.0f})")
-        print(f"Chrony offset: {median_adj:.5f}")
+        print(f"Fraction offset: {median_adj:.5f}")
     sock.close()
 
 
